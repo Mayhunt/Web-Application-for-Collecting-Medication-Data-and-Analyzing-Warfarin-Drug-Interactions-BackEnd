@@ -1,7 +1,6 @@
-
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({name:'drug_interaction'})
+@Entity({ name: 'drug_interaction' })
 export class DrugInteractionEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -11,12 +10,10 @@ export class DrugInteractionEntity {
 
   @Column()
   caution: string;
- 
+
   @Column()
   criteria: string;
 
   @Column()
   effect_inr: string;
-
-
 }

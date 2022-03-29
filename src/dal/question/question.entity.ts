@@ -1,18 +1,15 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'inr' })
-export class InrEntity {
+@Entity({ name: 'question' })
+export class QuestionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  follow_date: Date;
+  question: number;
 
   @Column()
-  inr_expect: number;
-
-  @Column()
-  inr_measure: number;
+  answer: number;
 
   @Column()
   user_id: number;

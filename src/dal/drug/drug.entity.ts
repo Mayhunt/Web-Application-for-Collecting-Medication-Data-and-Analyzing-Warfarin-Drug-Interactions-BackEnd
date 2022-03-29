@@ -15,4 +15,12 @@ export class DrugEntity {
   @Column()
   pic: string;
 
+  @OneToMany(() => AllergicDrugUsedEntity, (drug_id) => drug_id.id)
+  @JoinColumn({ name: 'drug_id' })
+  drug_id: AllergicDrugUsedEntity;
+
+  @OneToMany(() => DrugCurrentlyUsedEntity, (drug_id) => drug_id.id)
+  @JoinColumn({ name: 'drug_id' })
+  drug_id: DrugCurrentlyUsedEntity;
+
 }
