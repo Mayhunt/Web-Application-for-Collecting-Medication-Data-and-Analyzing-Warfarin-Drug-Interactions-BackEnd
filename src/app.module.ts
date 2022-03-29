@@ -11,6 +11,7 @@ import { DrugEntity } from './pkg/dal/drug/drug.entity';
 import { InrEntity } from './pkg/dal/inr/inr.entity';
 import { QuestionEntity } from './pkg/dal/question/question.entity';
 import { UserEntity } from './pkg/dal/user/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { UserEntity } from './pkg/dal/user/user.entity';
       }),
       inject: [databaseConfig.KEY],
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
