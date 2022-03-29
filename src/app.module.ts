@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
+import { ConfigModule, ConfigType } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 import databaseConfig from './pkg/config/database.config';
 import { AllergicDrugUsedEntity } from './pkg/dal/allergic-drug-used/allergic-drug-used.entity';
 import { DrugCurrentlyUsedEntity } from './pkg/dal/drug-currently-used/drug-currently-used.entity';
@@ -11,7 +13,6 @@ import { DrugEntity } from './pkg/dal/drug/drug.entity';
 import { InrEntity } from './pkg/dal/inr/inr.entity';
 import { QuestionEntity } from './pkg/dal/question/question.entity';
 import { UserEntity } from './pkg/dal/user/user.entity';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -46,6 +47,23 @@ import { AuthModule } from './auth/auth.module';
         },
       }),
       inject: [databaseConfig.KEY],
+    }),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        transport: {
+          target: 'pino-http-print',
+          options: {
+            destination: 1,
+            all: true,
+            colorize: true,
+            translateTime: true,
+            prettyOptions: {
+              ignore: 'hostname,pid,context,req,res',
+              messageFormat: '({context})  \x1B[37m{msg}',
+            },
+          },
+        },
+      },
     }),
     AuthModule,
   ],
