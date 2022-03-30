@@ -5,7 +5,9 @@ import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import databaseConfig from './pkg/config/database.config';
+import { DatabaseConfig } from './pkg/config/database.config';
+import { GenericConfig } from './pkg/config/generic.config';
+import { JwtConfig } from './pkg/config/jwt.config';
 import { AllergicDrugUsedEntity } from './pkg/dal/allergic-drug-used/allergic-drug-used.entity';
 import { DrugCurrentlyUsedEntity } from './pkg/dal/drug-currently-used/drug-currently-used.entity';
 import { DrugInteractionEntity } from './pkg/dal/drug-interaction/drug-interaction.entity';
@@ -18,11 +20,11 @@ import { UserEntity } from './pkg/dal/user/user.entity';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig],
+      load: [DatabaseConfig, GenericConfig, JwtConfig],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (dbConfig: ConfigType<typeof databaseConfig>) => ({
+      useFactory: (dbConfig: ConfigType<typeof DatabaseConfig>) => ({
         type: 'postgres',
         host: dbConfig.host,
         port: dbConfig.port,
@@ -38,15 +40,15 @@ import { UserEntity } from './pkg/dal/user/user.entity';
           QuestionEntity,
           UserEntity,
         ],
-        synchronize: true,
-        dropSchema: true, ///delete all table in database :clear
+        synchronize: dbConfig.isSync,
+        dropSchema: dbConfig.isDrop, ///delete all table in database :clear
         autoLoadEntities: true,
-        logging: true,
+        logging: dbConfig.isLog,
         ssl: {
           ca: dbConfig.caCert,
         },
       }),
-      inject: [databaseConfig.KEY],
+      inject: [DatabaseConfig.KEY],
     }),
     LoggerModule.forRoot({
       pinoHttp: {
