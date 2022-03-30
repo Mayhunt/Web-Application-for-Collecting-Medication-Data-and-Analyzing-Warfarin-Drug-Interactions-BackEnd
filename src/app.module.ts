@@ -1,38 +1,73 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigType } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { LoggerModule } from 'nestjs-pino';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AllergicDrugUsedRepository } from './dal/allergic-drug-used/allergic-drug-used.repository';
-import { DrugCurrentlyUsedRepository } from './dal/drug-currently-used/drug-currently-used.repository';
-import { DrugInteractionRepository } from './dal/drug-interaction/drug-interaction.repository';
-import { DrugRepository } from './dal/drug/drug.repository';
-import { InrRepository } from './dal/inr/inr.repository';
-import { QuestionRepository } from './dal/question/question.repository';
-import { UserRepository } from './dal/user/user.repository';
+import { AuthModule } from './auth/auth.module';
+import { DatabaseConfig } from './pkg/config/database.config';
+import { GenericConfig } from './pkg/config/generic.config';
+import { JwtConfig } from './pkg/config/jwt.config';
+import { AllergicDrugUsedEntity } from './pkg/dal/allergic-drug-used/allergic-drug-used.entity';
+import { DrugCurrentlyUsedEntity } from './pkg/dal/drug-currently-used/drug-currently-used.entity';
+import { DrugInteractionEntity } from './pkg/dal/drug-interaction/drug-interaction.entity';
+import { DrugEntity } from './pkg/dal/drug/drug.entity';
+import { InrEntity } from './pkg/dal/inr/inr.entity';
+import { QuestionEntity } from './pkg/dal/question/question.entity';
+import { UserEntity } from './pkg/dal/user/user.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: '206.189.38.174',
-      port: 5432,
-      username: 'isaree',
-      password: 'jZzuj6hvz2oDkSec',
-      database: 'isaree',
-      entities: [],
-      synchronize: true,
-      dropSchema: true, ///delete all table in database :clear
-      autoLoadEntities: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [DatabaseConfig, GenericConfig, JwtConfig],
     }),
-    TypeOrmModule.forFeature([
-      UserRepository,
-      DrugRepository,
-      InrRepository,
-      QuestionRepository,
-      DrugInteractionRepository,
-      DrugCurrentlyUsedRepository,
-      AllergicDrugUsedRepository,
-    ]),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (dbConfig: ConfigType<typeof DatabaseConfig>) => ({
+        type: 'postgres',
+        host: dbConfig.host,
+        port: dbConfig.port,
+        username: dbConfig.username,
+        password: dbConfig.password,
+        database: dbConfig.database,
+        entities: [
+          AllergicDrugUsedEntity,
+          DrugEntity,
+          DrugCurrentlyUsedEntity,
+          DrugInteractionEntity,
+          InrEntity,
+          QuestionEntity,
+          UserEntity,
+        ],
+        synchronize: dbConfig.isSync,
+        dropSchema: dbConfig.isDrop, ///delete all table in database :clear
+        autoLoadEntities: true,
+        logging: dbConfig.isLog,
+        ssl: {
+          ca: dbConfig.caCert,
+        },
+      }),
+      inject: [DatabaseConfig.KEY],
+    }),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        transport: {
+          target: 'pino-http-print',
+          options: {
+            destination: 1,
+            all: true,
+            colorize: true,
+            translateTime: true,
+            prettyOptions: {
+              ignore: 'hostname,pid,context,req,res',
+              messageFormat: '({context})  \x1B[37m{msg}',
+            },
+          },
+        },
+      },
+    }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
