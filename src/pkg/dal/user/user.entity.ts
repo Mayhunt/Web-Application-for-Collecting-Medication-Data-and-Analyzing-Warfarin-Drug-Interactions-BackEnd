@@ -1,17 +1,17 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { AllergicDrugUsedEntity } from '../allergic-drug-used/allergic-drug-used.entity';
+import { BaseEntity } from '../base/base.entity';
 import { DrugCurrentlyUsedEntity } from '../drug-currently-used/drug-currently-used.entity';
 import { InrEntity } from '../inr/inr.entity';
 import { QuestionEntity } from '../question/question.entity';
 
 @Entity({ name: 'user' })
-export class UserEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
-
+export class UserEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 255 })
   username: string;
 
+  @Exclude({ toPlainOnly: true })
   @Column({ type: 'text' })
   password: string;
 
