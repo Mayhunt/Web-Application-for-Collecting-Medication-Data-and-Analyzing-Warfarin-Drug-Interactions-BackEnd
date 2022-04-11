@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { DatabaseConfig } from './pkg/config/database.config';
 import { GenericConfig } from './pkg/config/generic.config';
 import { JwtConfig } from './pkg/config/jwt.config';
+import { AllergicCardPicEntity } from './pkg/dal/allergic-card-pic/allergic-card-pic.entity';
 import { AllergicDrugUsedEntity } from './pkg/dal/allergic-drug-used/allergic-drug-used.entity';
 import { DrugCurrentlyUsedEntity } from './pkg/dal/drug-currently-used/drug-currently-used.entity';
 import { DrugInteractionEntity } from './pkg/dal/drug-interaction/drug-interaction.entity';
