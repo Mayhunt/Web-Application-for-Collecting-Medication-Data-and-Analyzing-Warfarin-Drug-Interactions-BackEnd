@@ -1,5 +1,6 @@
 import { Exclude } from 'class-transformer';
 import { Column, Entity, OneToMany } from 'typeorm';
+import { AllergicCardPicEntity } from '../allergic-card-pic/allergic-card-pic.entity';
 import { AllergicDrugUsedEntity } from '../allergic-drug-used/allergic-drug-used.entity';
 import { BaseEntity } from '../base/base.entity';
 import { DrugCurrentlyUsedEntity } from '../drug-currently-used/drug-currently-used.entity';
@@ -65,6 +66,12 @@ export class UserEntity extends BaseEntity {
     (allergicDrugUsed) => allergicDrugUsed.user,
   )
   allergicDrugUseds: AllergicDrugUsedEntity[];
+
+  @OneToMany(
+    () => AllergicCardPicEntity,
+    (allergicCardPic) => allergicCardPic.user,
+  )
+  allergicCardPics: AllergicCardPicEntity[];
 
   @OneToMany(
     () => DrugCurrentlyUsedEntity,
