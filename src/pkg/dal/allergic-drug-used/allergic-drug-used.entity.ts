@@ -18,10 +18,10 @@ export class AllergicDrugUsedEntity extends BaseEntity {
   symptom: string;
 
   @Column({ type: 'varchar', length: 255 })
+  place: string;
+  
+  @Column({ type: 'varchar', length: 255 })
   more: string;
-
-  @Column({ name: 'card_pic', type: 'varchar', length: 255 })
-  cardPic: string;
 
   @ManyToOne(() => UserEntity, (user) => user.allergicDrugUseds)
   @JoinColumn({ name: 'user_id' })

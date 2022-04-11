@@ -15,6 +15,12 @@ import { DrugEntity } from './pkg/dal/drug/drug.entity';
 import { InrEntity } from './pkg/dal/inr/inr.entity';
 import { QuestionEntity } from './pkg/dal/question/question.entity';
 import { UserEntity } from './pkg/dal/user/user.entity';
+import { AllergicDrugModule } from './allergic-drug/allergic-drug.module';
+// import { SearchModule } from './search/search.module';
+import { CurrentlyDrugModule } from './currently-drug/currently-drug.module';
+import { InrModule } from './inr/inr.module';
+import { UserModule } from './user/user.module';
+import { AllergicCardPicEntity } from './pkg/dal/allergic-card-pic/allergic-card-pic.entity';
 
 @Module({
   imports: [
@@ -33,6 +39,7 @@ import { UserEntity } from './pkg/dal/user/user.entity';
         database: dbConfig.database,
         entities: [
           AllergicDrugUsedEntity,
+          AllergicCardPicEntity,
           DrugEntity,
           DrugCurrentlyUsedEntity,
           DrugInteractionEntity,
@@ -68,6 +75,11 @@ import { UserEntity } from './pkg/dal/user/user.entity';
       },
     }),
     AuthModule,
+    AllergicDrugModule,
+    // SearchModule,
+    CurrentlyDrugModule,
+    InrModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
