@@ -34,6 +34,7 @@ import { UserEntity } from './pkg/dal/user/user.entity';
         database: dbConfig.database,
         entities: [
           AllergicDrugUsedEntity,
+          AllergicCardPicEntity,
           DrugEntity,
           DrugCurrentlyUsedEntity,
           DrugInteractionEntity,
