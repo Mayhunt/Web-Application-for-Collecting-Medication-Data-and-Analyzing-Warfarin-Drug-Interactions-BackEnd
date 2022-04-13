@@ -1,15 +1,12 @@
-import { IsDate, IsNumber } from "class-validator";
+import { IsDate, IsNumber } from 'class-validator';
 
-export class CreateInrDto{
+export class CreateInrDto {
+  @IsDate()
+  followDate: Date;
 
-    @IsDate()
-    followDate: Date
-    
-    @IsNumber()
-    inrExpect: number
+  @IsNumber()
+  inrExpect: number;
 
-    @IsNumber()
-    inrMeasure: number
-
-
+  @IsNumber()
+  inrMeasure: number;
 }

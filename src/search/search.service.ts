@@ -1,8 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DrugEntity } from 'src/pkg/dal/drug/drug.entity';
 import { DrugRepository } from 'src/pkg/dal/drug/drug.repository';
-import { SearchDto } from './dto/search.dto';
 
 @Injectable()
 export class SearchService {
@@ -11,14 +10,18 @@ export class SearchService {
     private drugRepository : DrugRepository
     ) {}
     // เหี้ยไรว้ะ 
-    async searchDrug(searchDto: SearchDto) : Promise<DrugEntity> {
-        try{
+    async searchDrug(search : string) : Promise<DrugEntity[]> {
+        try {
             const query = this.drugRepository.createQueryBuilder('drugEntity')
             if(search) {
-                query('(LOWER(')
+                query.where('Lower(drugEntity.genericName) LIKE Lower(:search)', {search : '%${search}%'})
             }
-        } catch(e)
-        const AllergicDrugs = await this.allergicDrugUsedRepository.find()
-        return AllergicDrugs
-    }
+
+            const drugs = await query.getMany()
+            return drugs
+        } catch(e) {
+            throw new NotFoundException ({
+                message : [' Drug not found']
+            })
+        }
 }

@@ -1,16 +1,15 @@
-import { IsString } from "class-validator";
+import { IsString } from 'class-validator';
 
-export class CreateAllergicDrugDto{
+export class CreateAllergicDrugDto {
+  @IsString()
+  symptom: string;
 
-    @IsString()
-    symptom: string;
+  @IsString()
+  place: string;
 
-    @IsString()
-    place: string;
+  @IsString()
+  more: string;
 
-    @IsString()
-    more: string;
-
-    @IsString()
-    drugId: string;
+  @IsString()
+  drugId: string;
 }

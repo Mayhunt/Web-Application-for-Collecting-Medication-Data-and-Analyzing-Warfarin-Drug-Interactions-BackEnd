@@ -2,6 +2,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
@@ -15,6 +16,7 @@ import { UserRepository } from 'src/pkg/dal/user/user.repository';
 import { JwtPayload } from 'src/pkg/interface/jwt-payload.interface';
 import { RegisterDto } from './dto/register.dto';
 import { SignInDto } from './dto/sign-in.dto';
+import { UpdateMeDto } from './dto/update-me.dto';
 
 @Injectable()
 export class AuthService {
@@ -85,5 +87,95 @@ export class AuthService {
   public async me(id: string) {
     const user = await this.userRepository.findOne({ id });
     return user;
+  }
+
+  async updateMe(id: string, updateMeDto: UpdateMeDto) {
+    try {
+      const Me = await this.me(id);
+      const {
+        firstName,
+        lastName,
+        idCardNumber,
+        birthDate,
+        bloodGroup,
+        medicationCondition,
+        weight,
+        height,
+        bmi,
+        phoneNum,
+        emergencyContact,
+        emergencyPhoneNum,
+        pic,
+      } = updateMeDto;
+      if (firstName) {
+        Me.firstName = firstName;
+      }
+
+      if (lastName) {
+        Me.lastName = lastName;
+      }
+
+      if (idCardNumber) {
+        Me.idCardNumber = idCardNumber;
+      }
+
+      if (birthDate) {
+        Me.birthDate = birthDate;
+      }
+
+      if (bloodGroup) {
+        Me.bloodGroup = bloodGroup;
+      }
+
+      if (medicationCondition) {
+        Me.medicationCondition = medicationCondition;
+      }
+
+      if (weight) {
+        Me.weight = weight;
+      }
+
+      if (height) {
+        Me.height = height;
+      }
+
+      if (bmi) {
+        Me.bmi = bmi;
+      }
+
+      if (phoneNum) {
+        Me.phoneNum = phoneNum;
+      }
+
+      if (emergencyContact) {
+        Me.emergencyContact = emergencyContact;
+      }
+
+      if (emergencyPhoneNum) {
+        Me.emergencyPhoneNum = emergencyPhoneNum;
+      }
+
+      if (pic) {
+        Me.pic = pic;
+      }
+
+      await this.userRepository.save(Me);
+      return Me;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Updating not success'],
+      });
+    }
+  }
+  async deleteMe(id: string) {
+    try {
+      const Me = await this.me(id);
+      await this.userRepository.delete(id);
+      return Me;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Deleting not success'],
+      });
+    }
   }
 }

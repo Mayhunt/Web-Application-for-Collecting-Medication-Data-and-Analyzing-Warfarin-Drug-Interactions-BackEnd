@@ -6,8 +6,11 @@ import { AllergicDrugController } from './allergic-drug.controller';
 import { AllergicDrugService } from './allergic-drug.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AllergicDrugUsedRepository]),TypeOrmModule.forFeature([DrugRepository])],
+  imports: [
+    TypeOrmModule.forFeature([AllergicDrugUsedRepository]),
+    TypeOrmModule.forFeature([DrugRepository]),
+  ],
   controllers: [AllergicDrugController],
-  providers: [AllergicDrugService]
+  providers: [AllergicDrugService],
 })
 export class AllergicDrugModule {}

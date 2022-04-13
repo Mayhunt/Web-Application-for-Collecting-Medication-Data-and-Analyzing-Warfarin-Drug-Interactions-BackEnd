@@ -9,6 +9,7 @@ import { DatabaseConfig } from './pkg/config/database.config';
 import { GenericConfig } from './pkg/config/generic.config';
 import { JwtConfig } from './pkg/config/jwt.config';
 import { AllergicCardPicEntity } from './pkg/dal/allergic-card-pic/allergic-card-pic.entity';
+import { QuestionModule } from './question/question.module';
 import { AllergicDrugUsedEntity } from './pkg/dal/allergic-drug-used/allergic-drug-used.entity';
 import { DrugCurrentlyUsedEntity } from './pkg/dal/drug-currently-used/drug-currently-used.entity';
 import { DrugInteractionEntity } from './pkg/dal/drug-interaction/drug-interaction.entity';
@@ -81,6 +82,7 @@ import { AllergicCardPicEntity } from './pkg/dal/allergic-card-pic/allergic-card
     CurrentlyDrugModule,
     InrModule,
     UserModule,
+    QuestionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

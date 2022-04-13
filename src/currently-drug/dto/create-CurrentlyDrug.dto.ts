@@ -1,34 +1,33 @@
-import { IsBoolean, IsDate, IsEnum, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsDate, IsNumber, IsString } from 'class-validator';
 
-export class CreateCurrentlyDrugDto{
-    @IsString()
-    drugId:string;
+export class CreateCurrentlyDrugDto {
+  @IsString()
+  drugId: string;
 
-    @IsDate()
-    receiveDate: Date;
+  @IsDate()
+  receiveDate: Date;
 
-    @IsString()
-    receivePlace: string;
+  @IsString()
+  receivePlace: string;
 
-    @IsString()
-    more: string;
+  @IsString()
+  more: string;
 
-    @IsBoolean()
-    drugAlert: boolean;
+  @IsBoolean()
+  drugAlert: boolean;
 
-    // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
+  // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
 
-    @IsNumber()
-    tabs: number;
+  @IsNumber()
+  tabs: number;
 
-    // หอยหลอด enum กำหนดค่ายังไง registerEnum เหี้ยไรนิ
-    // @IsEnum()
-    // take: Enumerator;
+  // หอยหลอด enum กำหนดค่ายังไง registerEnum เหี้ยไรนิ
+  // @IsEnum()
+  // take: Enumerator;
 
-    // @IsEnum()
-    // time: Enumerator;
+  // @IsEnum()
+  // time: Enumerator;
 
-    @IsNumber()
-    everyHour: number;
-
+  @IsNumber()
+  everyHour: number;
 }

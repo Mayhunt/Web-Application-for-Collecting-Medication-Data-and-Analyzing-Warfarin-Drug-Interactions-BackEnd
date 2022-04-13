@@ -7,6 +7,6 @@ import { InrService } from './inr.service';
 @Module({
   imports: [TypeOrmModule.forFeature([InrRepository])],
   controllers: [InrController],
-  providers: [InrService]
+  providers: [InrService],
 })
 export class InrModule {}

@@ -2,7 +2,10 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
+  Param,
+  Patch,
   Post,
   UseGuards,
   UseInterceptors,
@@ -13,6 +16,7 @@ import { JwtAuthGuard } from 'src/pkg/guard/jwt-auth.guard';
 import { LocalAuthGuard } from '../pkg/guard/local-auth.guard';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
+import { UpdateMeDto } from './dto/update-me.dto';
 
 @Controller('auth')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -34,5 +38,18 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   me(@User() user: UserEntity) {
     return user;
+  }
+
+  @Patch(':id/update')
+  updateMe(
+    @Param('id') id: string,
+    @Body() updateMeDto: UpdateMeDto,
+  ): Promise<UserEntity> {
+    return this.authService.updateMe(id, updateMeDto);
+  }
+
+  @Delete(':id/delete')
+  deleteMe(@Param('id') id: string): Promise<UserEntity> {
+    return this.authService.deleteMe(id);
   }
 }
