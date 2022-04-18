@@ -1,5 +1,13 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 import { BaseEntity } from '../base/base.entity';
+import { DrugAlertEntity } from '../drug-alert/drug-alert.entity';
 import { DrugEntity } from '../drug/drug.entity';
 import { UserEntity } from '../user/user.entity';
 
@@ -20,8 +28,8 @@ export class DrugCurrentlyUsedEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 255 })
   more: string;
 
-  @Column({ name: 'drug_alert', type: 'boolean' })
-  drugAlert: boolean;
+  @Column({ name: 'alert_status', type: 'boolean' })
+  AlertStatus: boolean;
 
   @ManyToOne(() => UserEntity, (user) => user.drugCurrentlyUseds)
   @JoinColumn({ name: 'user_id' })
@@ -30,4 +38,14 @@ export class DrugCurrentlyUsedEntity extends BaseEntity {
   @ManyToOne(() => DrugEntity, (drug) => drug.drugCurrentlyUseds)
   @JoinColumn({ name: 'drug_id' })
   drug: DrugEntity;
+
+  @OneToMany(
+    () => DrugCurrentlyUsedEntity,
+    (drugCurrentlyUsed) => drugCurrentlyUsed.user,
+  )
+  drugCurrentlyUseds: DrugCurrentlyUsedEntity[];
+
+  @OneToOne(() => DrugAlertEntity)
+  @JoinColumn()
+  drugAlert: DrugAlertEntity;
 }
