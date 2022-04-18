@@ -15,8 +15,8 @@ export class UpdateCurrentlyDrugDto {
 
   // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
 
-  @IsOptional()
-  tabs?: number;
+  // @IsOptional()
+  // tabs?: number;
 
   // หอยหลอด enum กำหนดค่ายังไง registerEnum เหี้ยไรนิ
   // @IsEnum()
@@ -25,6 +25,6 @@ export class UpdateCurrentlyDrugDto {
   // @IsEnum()
   // time: Enumerator;
 
-  @IsOptional()
-  everyHour?: number;
+  // @IsOptional()
+  // everyHour?: number;
 }

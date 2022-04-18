@@ -23,11 +23,13 @@ export class CurrentlyDrugService {
       receiveDate,
       receivePlace,
       more,
+      // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
       drugAlert,
-      tabs,
+      // tabs,
+      // ค่า enum
       // take,
       // time,
-      everyHour,
+      // everyHour,
     } = createCurrentlyDrugDto;
 
     const drug = await this.drugRepository.findOneOrFail({
@@ -58,7 +60,7 @@ export class CurrentlyDrugService {
   }
 
   async getCurrentlyDrugById(id: string): Promise<DrugCurrentlyUsedEntity> {
-    const CurrentlyDrug = await this.currentlyDrugRepository.findOneOrFail();
+    const CurrentlyDrug = await this.currentlyDrugRepository.findOneOrFail(id);
     return CurrentlyDrug;
   }
 
@@ -69,7 +71,7 @@ export class CurrentlyDrugService {
     try {
       const CurrentlyDrug = await this.getCurrentlyDrugById(id);
 
-      const { receiveDate, receivePlace, more, drugAlert, tabs, everyHour } =
+      const { receiveDate, receivePlace, more, drugAlert } =
         updateCurrentlyDrugDto;
 
       if (receiveDate) {
@@ -88,13 +90,13 @@ export class CurrentlyDrugService {
         CurrentlyDrug.drugAlert = drugAlert;
       }
 
-      if (tabs) {
-        CurrentlyDrug.tabs = tabs;
-      }
+      // if (tabs) {
+      //   CurrentlyDrug.tabs = tabs;
+      // }
 
-      if (everyHour) {
-        CurrentlyDrug.everyHour = everyHour;
-      }
+      // if (everyHour) {
+      //   CurrentlyDrug.everyHour = everyHour;
+      // }
 
       await this.currentlyDrugRepository.save(CurrentlyDrug);
       return CurrentlyDrug;

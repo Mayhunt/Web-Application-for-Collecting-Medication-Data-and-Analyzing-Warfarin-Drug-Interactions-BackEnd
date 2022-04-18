@@ -1,4 +1,4 @@
-import { IsBoolean, IsDate, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsString } from 'class-validator';
 
 export class CreateCurrentlyDrugDto {
   @IsString()
@@ -18,8 +18,8 @@ export class CreateCurrentlyDrugDto {
 
   // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
 
-  @IsNumber()
-  tabs: number;
+  // @IsNumber()
+  // tabs: number;
 
   // หอยหลอด enum กำหนดค่ายังไง registerEnum เหี้ยไรนิ
   // @IsEnum()
@@ -28,6 +28,6 @@ export class CreateCurrentlyDrugDto {
   // @IsEnum()
   // time: Enumerator;
 
-  @IsNumber()
-  everyHour: number;
+  // @IsNumber()
+  // everyHour: number;
 }

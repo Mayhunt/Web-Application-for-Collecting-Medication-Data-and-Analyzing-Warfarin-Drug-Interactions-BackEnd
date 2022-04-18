@@ -2,14 +2,17 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerModule } from 'nestjs-pino';
+import { AllergicDrugModule } from './allergic-drug/allergic-drug.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+// import { SearchModule } from './search/search.module';
+import { CurrentlyDrugModule } from './currently-drug/currently-drug.module';
+import { InrModule } from './inr/inr.module';
 import { DatabaseConfig } from './pkg/config/database.config';
 import { GenericConfig } from './pkg/config/generic.config';
 import { JwtConfig } from './pkg/config/jwt.config';
 import { AllergicCardPicEntity } from './pkg/dal/allergic-card-pic/allergic-card-pic.entity';
-import { QuestionModule } from './question/question.module';
 import { AllergicDrugUsedEntity } from './pkg/dal/allergic-drug-used/allergic-drug-used.entity';
 import { DrugCurrentlyUsedEntity } from './pkg/dal/drug-currently-used/drug-currently-used.entity';
 import { DrugInteractionEntity } from './pkg/dal/drug-interaction/drug-interaction.entity';
@@ -17,12 +20,7 @@ import { DrugEntity } from './pkg/dal/drug/drug.entity';
 import { InrEntity } from './pkg/dal/inr/inr.entity';
 import { QuestionEntity } from './pkg/dal/question/question.entity';
 import { UserEntity } from './pkg/dal/user/user.entity';
-import { AllergicDrugModule } from './allergic-drug/allergic-drug.module';
-// import { SearchModule } from './search/search.module';
-import { CurrentlyDrugModule } from './currently-drug/currently-drug.module';
-import { InrModule } from './inr/inr.module';
-import { UserModule } from './user/user.module';
-import { AllergicCardPicEntity } from './pkg/dal/allergic-card-pic/allergic-card-pic.entity';
+// import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -81,8 +79,7 @@ import { AllergicCardPicEntity } from './pkg/dal/allergic-card-pic/allergic-card
     // SearchModule,
     CurrentlyDrugModule,
     InrModule,
-    UserModule,
-    QuestionModule,
+    // UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
