@@ -5,23 +5,26 @@ import { DrugRepository } from 'src/pkg/dal/drug/drug.repository';
 
 @Injectable()
 export class SearchService {
-    constructor(
+  constructor(
     @InjectRepository(DrugRepository)
-    private drugRepository : DrugRepository
-    ) {}
-    // เหี้ยไรว้ะ 
-    async searchDrug(search : string) : Promise<DrugEntity[]> {
-        try {
-            const query = this.drugRepository.createQueryBuilder('drugEntity')
-            if(search) {
-                query.where('Lower(drugEntity.genericName) LIKE Lower(:search)', {search : '%${search}%'})
-            }
+    private drugRepository: DrugRepository,
+  ) {}
+  // เหี้ยไรว้ะ
+  async searchDrug(search: string): Promise<DrugEntity[]> {
+    try {
+      const query = this.drugRepository.createQueryBuilder('drugEntity');
+      if (search) {
+        query.where('Lower(drugEntity.genericName) LIKE Lower(:search)', {
+          search: '%${search}%',
+        });
+      }
 
-            const drugs = await query.getMany()
-            return drugs
-        } catch(e) {
-            throw new NotFoundException ({
-                message : [' Drug not found']
-            })
-        }
+      const drugs = await query.getMany();
+      return drugs;
+    } catch (e) {
+      throw new NotFoundException({
+        message: [' Drug not found'],
+      });
+    }
+  }
 }
