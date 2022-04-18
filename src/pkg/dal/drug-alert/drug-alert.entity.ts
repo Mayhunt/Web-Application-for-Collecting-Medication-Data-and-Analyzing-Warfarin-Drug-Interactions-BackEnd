@@ -14,15 +14,15 @@ export enum Time {
 
 @Entity({ name: 'drug_alert' })
 export class DrugAlertEntity extends BaseEntity {
-  @Column({ name: 'tabs', type: 'number', length: 255 })
+  @Column({ name: 'tabs', type: 'numeric' })
   tabs: number;
 
-  @Column({ type: 'enum' })
+  @Column({ type: 'enum', enum: Takes })
   take: Takes;
 
-  @Column({ type: 'enum' })
+  @Column({ type: 'enum', enum: Time })
   time: Time;
 
-  @Column({ name: 'every_hour', type: 'number', length: 255 })
+  @Column({ name: 'every_hour', type: 'numeric' })
   every_hour: number;
 }

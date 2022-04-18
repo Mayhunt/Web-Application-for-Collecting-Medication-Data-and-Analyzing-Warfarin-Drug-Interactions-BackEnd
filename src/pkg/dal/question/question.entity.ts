@@ -4,10 +4,10 @@ import { UserEntity } from '../user/user.entity';
 
 @Entity({ name: 'question' })
 export class QuestionEntity extends BaseEntity {
-  @Column({ type: 'string' })
+  @Column({ type: 'text' })
   question: string;
 
-  @Column({ type: 'string' })
+  @Column({ type: 'text' })
   answer: string;
 
   @ManyToOne(() => UserEntity, (user) => user.questions)
