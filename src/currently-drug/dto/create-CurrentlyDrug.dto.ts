@@ -14,7 +14,9 @@ export class CreateCurrentlyDrugDto {
   more: string;
 
   @IsBoolean()
-  drugAlert: boolean;
+  alertStatus: boolean;
+
+  //
 
   // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
 
