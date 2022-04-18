@@ -24,7 +24,7 @@ export class CurrentlyDrugService {
       receivePlace,
       more,
       // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
-      drugAlert,
+      // drugAlert,
       // tabs,
       // ค่า enum
       // take,
@@ -40,7 +40,7 @@ export class CurrentlyDrugService {
       receiveDate,
       receivePlace,
       more,
-      drugAlert,
+      // drugAlert,
       // tabs,
       // take,
       // time,
@@ -86,9 +86,9 @@ export class CurrentlyDrugService {
         CurrentlyDrug.more = more;
       }
 
-      if (drugAlert) {
-        CurrentlyDrug.drugAlert = drugAlert;
-      }
+      // if (drugAlert) {
+      //   CurrentlyDrug.drugAlert = drugAlert;
+      // }
 
       // if (tabs) {
       //   CurrentlyDrug.tabs = tabs;

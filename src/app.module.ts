@@ -14,6 +14,7 @@ import { GenericConfig } from './pkg/config/generic.config';
 import { JwtConfig } from './pkg/config/jwt.config';
 import { AllergicCardPicEntity } from './pkg/dal/allergic-card-pic/allergic-card-pic.entity';
 import { AllergicDrugUsedEntity } from './pkg/dal/allergic-drug-used/allergic-drug-used.entity';
+import { DrugAlertEntity } from './pkg/dal/drug-alert/drug-alert.entity';
 import { DrugCurrentlyUsedEntity } from './pkg/dal/drug-currently-used/drug-currently-used.entity';
 import { DrugInteractionEntity } from './pkg/dal/drug-interaction/drug-interaction.entity';
 import { DrugEntity } from './pkg/dal/drug/drug.entity';
@@ -46,6 +47,7 @@ import { UserEntity } from './pkg/dal/user/user.entity';
           InrEntity,
           QuestionEntity,
           UserEntity,
+          DrugAlertEntity,
         ],
         synchronize: dbConfig.isSync,
         dropSchema: dbConfig.isDrop, ///delete all table in database :clear
