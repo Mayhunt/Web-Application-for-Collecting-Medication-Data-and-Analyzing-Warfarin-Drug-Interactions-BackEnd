@@ -23,6 +23,7 @@ import { InrEntity } from './pkg/dal/inr/inr.entity';
 import { QuestionEntity } from './pkg/dal/question/question.entity';
 import { UserEntity } from './pkg/dal/user/user.entity';
 // import { UserModule } from './user/user.module';
+import { HintModule } from './hint/hint.module';
 
 @Module({
   imports: [
@@ -83,6 +84,7 @@ import { UserEntity } from './pkg/dal/user/user.entity';
     // SearchModule,
     CurrentlyDrugModule,
     InrModule,
+    HintModule,
     // UserModule,
   ],
   controllers: [AppController],
