@@ -18,6 +18,7 @@ import { DrugAlertEntity } from './pkg/dal/drug-alert/drug-alert.entity';
 import { DrugCurrentlyUsedEntity } from './pkg/dal/drug-currently-used/drug-currently-used.entity';
 import { DrugInteractionEntity } from './pkg/dal/drug-interaction/drug-interaction.entity';
 import { DrugEntity } from './pkg/dal/drug/drug.entity';
+import { HintEntity } from './pkg/dal/hint/hint.entity';
 import { InrEntity } from './pkg/dal/inr/inr.entity';
 import { QuestionEntity } from './pkg/dal/question/question.entity';
 import { UserEntity } from './pkg/dal/user/user.entity';
@@ -48,6 +49,7 @@ import { UserEntity } from './pkg/dal/user/user.entity';
           QuestionEntity,
           UserEntity,
           DrugAlertEntity,
+          HintEntity,
         ],
         synchronize: dbConfig.isSync,
         dropSchema: dbConfig.isDrop, ///delete all table in database :clear
