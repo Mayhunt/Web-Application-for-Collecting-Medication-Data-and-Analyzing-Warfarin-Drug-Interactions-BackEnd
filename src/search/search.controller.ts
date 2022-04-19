@@ -5,7 +5,7 @@ import { SearchService } from './search.service';
 export class SearchController {
   constructor(private searchService: SearchService) {}
 
-  @Get('/drug')
+  @Get()
   searchDrug(@Query('search') search: string) {
     return this.searchService.searchDrug(search);
   }

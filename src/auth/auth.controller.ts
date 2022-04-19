@@ -41,6 +41,7 @@ export class AuthController {
   }
 
   @Patch(':id/update')
+  @UseGuards(JwtAuthGuard)
   updateMe(
     @Param('id') id: string,
     @Body() updateMeDto: UpdateMeDto,
@@ -49,6 +50,7 @@ export class AuthController {
   }
 
   @Delete(':id/delete')
+  @UseGuards(JwtAuthGuard)
   deleteMe(@Param('id') id: string): Promise<UserEntity> {
     return this.authService.deleteMe(id);
   }

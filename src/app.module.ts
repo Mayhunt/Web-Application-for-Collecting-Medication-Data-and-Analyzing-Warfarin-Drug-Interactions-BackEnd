@@ -8,6 +8,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 // import { SearchModule } from './search/search.module';
 import { CurrentlyDrugModule } from './currently-drug/currently-drug.module';
+// import { UserModule } from './user/user.module';
+import { HintModule } from './hint/hint.module';
 import { InrModule } from './inr/inr.module';
 import { DatabaseConfig } from './pkg/config/database.config';
 import { GenericConfig } from './pkg/config/generic.config';
@@ -21,8 +23,8 @@ import { DrugEntity } from './pkg/dal/drug/drug.entity';
 import { InrEntity } from './pkg/dal/inr/inr.entity';
 import { QuestionEntity } from './pkg/dal/question/question.entity';
 import { UserEntity } from './pkg/dal/user/user.entity';
-// import { UserModule } from './user/user.module';
-import { HintModule } from './hint/hint.module';
+import { QuestionModule } from './question/question.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -79,7 +81,8 @@ import { HintModule } from './hint/hint.module';
     }),
     AuthModule,
     AllergicDrugModule,
-    // SearchModule,
+    QuestionModule,
+    SearchModule,
     CurrentlyDrugModule,
     InrModule,
     HintModule,

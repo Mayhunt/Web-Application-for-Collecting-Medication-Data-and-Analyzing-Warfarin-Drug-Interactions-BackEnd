@@ -20,8 +20,10 @@ export class CurrentlyDrugService {
     createCurrentlyDrugDto: CreateCurrentlyDrugDto,
   ): Promise<DrugCurrentlyUsedEntity> {
     const {
+      caution,
       receiveDate,
       receivePlace,
+      alertStatus,
       more,
       // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
       // drugAlert,
@@ -37,9 +39,11 @@ export class CurrentlyDrugService {
     });
 
     const createCurrentlyDrug = this.currentlyDrugRepository.create({
+      caution,
       receiveDate,
       receivePlace,
       more,
+      alertStatus,
       // drugAlert,
       // tabs,
       // take,
@@ -71,8 +75,12 @@ export class CurrentlyDrugService {
     try {
       const CurrentlyDrug = await this.getCurrentlyDrugById(id);
 
-      const { receiveDate, receivePlace, more, drugAlert } =
+      const { caution, receiveDate, receivePlace, more } =
         updateCurrentlyDrugDto;
+
+      if (caution) {
+        CurrentlyDrug.caution = caution;
+      }
 
       if (receiveDate) {
         CurrentlyDrug.receiveDate = receiveDate;
@@ -85,6 +93,10 @@ export class CurrentlyDrugService {
       if (more) {
         CurrentlyDrug.more = more;
       }
+
+      // if (alertStatus) {
+      //   CurrentlyDrug.alertStatus = alertStatus;
+      // }
 
       // if (drugAlert) {
       //   CurrentlyDrug.drugAlert = drugAlert;
