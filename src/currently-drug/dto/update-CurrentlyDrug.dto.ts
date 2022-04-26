@@ -2,6 +2,9 @@ import { IsOptional } from 'class-validator';
 
 export class UpdateCurrentlyDrugDto {
   @IsOptional()
+  caution?: string;
+
+  @IsOptional()
   receiveDate?: Date;
 
   @IsOptional()
@@ -11,7 +14,7 @@ export class UpdateCurrentlyDrugDto {
   more?: string;
 
   @IsOptional()
-  drugAlert?: boolean;
+  alertStatus?: boolean;
 
   // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
 

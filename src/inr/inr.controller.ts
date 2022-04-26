@@ -31,7 +31,7 @@ export class InrController {
     return this.inrService.getInrById(id);
   }
 
-  @Patch('id/update')
+  @Patch(':id/update')
   updateInr(
     @Param('id') id: string,
     @Body() updateInrDto: UpdateInrDto,

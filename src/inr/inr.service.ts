@@ -29,7 +29,7 @@ export class InrService {
   }
 
   async getInrById(id: string): Promise<InrEntity> {
-    const Inr = await this.inrRepository.findOneOrFail();
+    const Inr = await this.inrRepository.findOneOrFail(id);
     return Inr;
   }
 

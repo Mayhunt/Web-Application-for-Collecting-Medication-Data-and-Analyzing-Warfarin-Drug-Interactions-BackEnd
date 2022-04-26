@@ -29,7 +29,7 @@ export class DrugCurrentlyUsedEntity extends BaseEntity {
   more: string;
 
   @Column({ name: 'alert_status', type: 'boolean' })
-  AlertStatus: boolean;
+  alertStatus: boolean;
 
   @ManyToOne(() => UserEntity, (user) => user.drugCurrentlyUseds, {
     onDelete: 'CASCADE',

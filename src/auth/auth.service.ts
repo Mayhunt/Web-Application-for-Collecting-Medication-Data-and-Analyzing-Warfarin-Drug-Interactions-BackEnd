@@ -39,19 +39,19 @@ export class AuthService {
     newUser.username = dto.username;
     newUser.password = hashedPassword;
     // mocking please rewrite this code
-    newUser.birthDate = new Date();
-    newUser.bloodGroup = 'A';
-    newUser.bmi = 0;
-    newUser.emergencyContact = '';
-    newUser.emergencyPhoneNum = '0000000000';
-    newUser.firstName = '';
-    newUser.lastName = '';
-    newUser.height = 0;
-    newUser.idCardNumber = '0000000000000';
-    newUser.medicationCondition = '';
-    newUser.phoneNum = '';
-    newUser.pic = '';
-    newUser.weight = 0;
+    newUser.birthDate = dto.birthDate;
+    newUser.bloodGroup = dto.bloodGroup;
+    newUser.bmi = dto.bmi;
+    newUser.emergencyContact = dto.emergencyContact;
+    newUser.emergencyPhoneNum = dto.emergencyPhoneNum;
+    newUser.firstName = dto.firstName;
+    newUser.lastName = dto.lastName;
+    newUser.height = dto.height;
+    newUser.idCardNumber = dto.idCardNumber;
+    newUser.medicationCondition = dto.medicationCondition;
+    newUser.phoneNum = dto.phoneNum;
+    newUser.pic = dto.pic;
+    newUser.weight = dto.weight;
     const createUserResult = await this.userRepository
       .save(newUser)
       .catch((error) => {
