@@ -10,12 +10,16 @@ export class SearchService {
     private drugRepository: DrugRepository,
   ) {}
   // เหี้ยไรว้ะ
+  async getDrugs(): Promise<DrugEntity[]> {
+    const Drugs = await this.drugRepository.find();
+    return Drugs;
+  }
   async searchDrug(search: string): Promise<DrugEntity[]> {
     try {
       const query = this.drugRepository.createQueryBuilder('drugEntity');
       if (search) {
-        query.where('Lower(drugEntity.genericName) LIKE Lower(:search)', {
-          search: '%${search}%',
+        query.where('Lower(drugEntity.genericName) LIKE Lower(search)', {
+          search: `%${search}%`,
         });
       }
 

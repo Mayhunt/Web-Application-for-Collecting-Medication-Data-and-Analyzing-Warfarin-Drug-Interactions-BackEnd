@@ -1,4 +1,4 @@
-import { IsOptional } from 'class-validator';
+import { IsDate, IsOptional } from 'class-validator';
 
 export class UpdateMeDto {
   @IsOptional()
@@ -10,7 +10,7 @@ export class UpdateMeDto {
   @IsOptional()
   idCardNumber?: string;
 
-  @IsOptional()
+  @IsDate()
   birthDate?: Date;
 
   @IsOptional()
