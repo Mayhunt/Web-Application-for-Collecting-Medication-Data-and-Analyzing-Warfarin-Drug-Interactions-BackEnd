@@ -58,24 +58,27 @@ export class UserEntity extends BaseEntity {
   @OneToMany(() => QuestionEntity, (question) => question.user)
   questions: QuestionEntity[];
 
-  @OneToMany(() => InrEntity, (inr) => inr.user)
+  @OneToMany(() => InrEntity, (inr) => inr.user, { cascade: true })
   inrs: InrEntity[];
 
   @OneToMany(
     () => AllergicDrugUsedEntity,
     (allergicDrugUsed) => allergicDrugUsed.user,
+    { cascade: true },
   )
   allergicDrugUseds: AllergicDrugUsedEntity[];
 
   @OneToMany(
     () => AllergicCardPicEntity,
     (allergicCardPic) => allergicCardPic.user,
+    { cascade: true },
   )
   allergicCardPics: AllergicCardPicEntity[];
 
   @OneToMany(
     () => DrugCurrentlyUsedEntity,
     (drugCurrentlyUsed) => drugCurrentlyUsed.user,
+    { cascade: true },
   )
   drugCurrentlyUseds: DrugCurrentlyUsedEntity[];
 }

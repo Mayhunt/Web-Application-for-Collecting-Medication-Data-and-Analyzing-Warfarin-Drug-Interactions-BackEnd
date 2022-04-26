@@ -1,11 +1,4 @@
-import { basename } from 'path';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../base/base.entity';
 import { UserEntity } from '../user/user.entity';
 
@@ -20,7 +13,10 @@ export class InrEntity extends BaseEntity {
   @Column({ name: 'inr_measure', type: 'numeric' })
   inrMeasure: number;
 
-  @ManyToOne(() => UserEntity, (user) => user.inrs)
+  @ManyToOne(() => UserEntity, (user) => user.inrs, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 }

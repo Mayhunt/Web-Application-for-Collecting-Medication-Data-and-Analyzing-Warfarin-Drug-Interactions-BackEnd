@@ -11,11 +11,14 @@ export class QuestionEntity extends BaseEntity {
   @Column({ type: 'text' })
   answer: string;
 
-  @OneToOne(() => HintEntity)
+  @OneToOne(() => HintEntity, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn()
   hintt: HintEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.questions)
+  @ManyToOne(() => UserEntity, (user) => user.questions, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 }
