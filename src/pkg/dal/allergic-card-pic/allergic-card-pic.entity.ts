@@ -7,7 +7,10 @@ export class AllergicCardPicEntity extends BaseEntity {
   @Column({ name: 'card_pic', type: 'varchar', length: 255 })
   cardPic: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.allergicCardPics)
+  @ManyToOne(() => UserEntity, (user) => user.allergicCardPics, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 }

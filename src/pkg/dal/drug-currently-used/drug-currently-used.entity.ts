@@ -31,7 +31,10 @@ export class DrugCurrentlyUsedEntity extends BaseEntity {
   @Column({ name: 'alert_status', type: 'boolean' })
   alertStatus: boolean;
 
-  @ManyToOne(() => UserEntity, (user) => user.drugCurrentlyUseds)
+  @ManyToOne(() => UserEntity, (user) => user.drugCurrentlyUseds, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
@@ -42,10 +45,11 @@ export class DrugCurrentlyUsedEntity extends BaseEntity {
   @OneToMany(
     () => DrugCurrentlyUsedEntity,
     (drugCurrentlyUsed) => drugCurrentlyUsed.user,
+    { cascade: true },
   )
   drugCurrentlyUseds: DrugCurrentlyUsedEntity[];
 
-  @OneToOne(() => DrugAlertEntity)
+  @OneToOne(() => DrugAlertEntity, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn()
   drugAlert: DrugAlertEntity;
 }
