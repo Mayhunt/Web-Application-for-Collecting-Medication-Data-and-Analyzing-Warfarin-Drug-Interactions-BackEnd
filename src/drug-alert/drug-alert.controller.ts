@@ -1,32 +1,43 @@
-// import { Controller } from '@nestjs/common';
-// import { DrugAlertService } from './drug-alert.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { DrugAlertEntity } from 'src/pkg/dal/drug-alert/drug-alert.entity';
+import { DrugAlertService } from './drug-alert.service';
+import { CreateAlertDto } from './dto/create-alert.dto';
+import { UpdateAlertDto } from './dto/update-alert.dto';
 
-// @Controller('drug-alert')
-// export class DrugAlertController {
-//   constructor(private drugAlertService: DrugAlertService) {}
+@Controller('drug-alert')
+export class DrugAlertController {
+  constructor(private drugAlertService: DrugAlertService) {}
 
-//   @Post()
-//   createDrugAlert(
-//     @Body() createAlertDto: CreateAlertDto,
-//   ): Promise<DrugAlertEntity> {
-//     return this.drugAlertService.createDrugAlert(createAlertDto);
-//   }
+  @Post()
+  createDrugAlert(
+    @Body() createAlertDto: CreateAlertDto,
+  ): Promise<DrugAlertEntity> {
+    return this.drugAlertService.createDrugAlert(createAlertDto);
+  }
 
-//   @Get(':id')
-//   getDrugAlertById(@Param('id') id: string): Promise<DrugAlertEntity> {
-//     return this.drugAlertService.getDrugAlertById(id);
-//   }
+  @Get(':id')
+  getDrugAlertById(@Param('id') id: string): Promise<DrugAlertEntity> {
+    return this.drugAlertService.getDrugAlertById(id);
+  }
 
-//   @Patch(':id/update')
-//   updateDrugAlert(
-//     @Param('id') id: string,
-//     @Body() updateAlertDto: UpdateAlertDto,
-//   ): Promise<DrugAlertEntity> {
-//     return this.drugAlertService.updateDrugAlert(id, updateAlertDto);
-//   }
+  @Patch(':id/update')
+  updateDrugAlert(
+    @Param('id') id: string,
+    @Body() updateAlertDto: UpdateAlertDto,
+  ): Promise<DrugAlertEntity> {
+    return this.drugAlertService.updateDrugAlert(id, updateAlertDto);
+  }
 
-//   @Delete(':id/delete')
-//   deleteDrugAlert(@Param('id') id: string): Promise<DrugAlertEntity> {
-//     return this.drugAlertService.deleteDrugAlert(id);
-//   }
-// }
+  @Delete(':id/delete')
+  deleteDrugAlert(@Param('id') id: string): Promise<DrugAlertEntity> {
+    return this.drugAlertService.deleteDrugAlert(id);
+  }
+}

@@ -6,10 +6,10 @@ export class CreateAlertDto {
   tabs: number;
 
   @IsEnum(Takes)
-  take: Enumerator;
+  take: Takes;
 
   @IsEnum(Time)
-  time: Enumerator;
+  time: Time;
 
   @IsNumber()
   every_hour: number;

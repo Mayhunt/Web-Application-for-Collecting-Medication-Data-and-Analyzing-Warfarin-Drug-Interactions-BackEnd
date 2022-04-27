@@ -8,8 +8,6 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 // import { SearchModule } from './search/search.module';
 import { CurrentlyDrugModule } from './currently-drug/currently-drug.module';
-// import { AlertDrugModule } from './alert-drug/alert-drug.module';
-// import { DrugAlertModule } from './drug-alert/drug-alert.module';
 // import { UserModule } from './user/user.module';
 import { HintModule } from './hint/hint.module';
 import { InrModule } from './inr/inr.module';
