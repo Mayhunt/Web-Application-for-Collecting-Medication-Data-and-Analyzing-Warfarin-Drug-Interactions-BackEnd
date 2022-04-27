@@ -75,7 +75,7 @@ export class CurrentlyDrugService {
     try {
       const CurrentlyDrug = await this.getCurrentlyDrugById(id);
 
-      const { caution, receiveDate, receivePlace, more } =
+      const { caution, receiveDate, receivePlace, more, alertStatus } =
         updateCurrentlyDrugDto;
 
       if (caution) {
@@ -94,21 +94,9 @@ export class CurrentlyDrugService {
         CurrentlyDrug.more = more;
       }
 
-      // if (alertStatus) {
-      //   CurrentlyDrug.alertStatus = alertStatus;
-      // }
-
-      // if (drugAlert) {
-      //   CurrentlyDrug.drugAlert = drugAlert;
-      // }
-
-      // if (tabs) {
-      //   CurrentlyDrug.tabs = tabs;
-      // }
-
-      // if (everyHour) {
-      //   CurrentlyDrug.everyHour = everyHour;
-      // }
+      if (alertStatus) {
+        CurrentlyDrug.alertStatus = alertStatus;
+      }
 
       await this.currentlyDrugRepository.save(CurrentlyDrug);
       return CurrentlyDrug;

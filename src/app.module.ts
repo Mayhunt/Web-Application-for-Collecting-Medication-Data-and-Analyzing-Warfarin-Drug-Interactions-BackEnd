@@ -8,6 +8,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 // import { SearchModule } from './search/search.module';
 import { CurrentlyDrugModule } from './currently-drug/currently-drug.module';
+// import { AlertDrugModule } from './alert-drug/alert-drug.module';
+// import { DrugAlertModule } from './drug-alert/drug-alert.module';
 // import { UserModule } from './user/user.module';
 import { HintModule } from './hint/hint.module';
 import { InrModule } from './inr/inr.module';
@@ -26,6 +28,7 @@ import { QuestionEntity } from './pkg/dal/question/question.entity';
 import { UserEntity } from './pkg/dal/user/user.entity';
 import { QuestionModule } from './question/question.module';
 import { SearchModule } from './search/search.module';
+// import { Drug0alertService } from './drug0alert/drug0alert.service';
 
 @Module({
   imports: [
@@ -88,6 +91,7 @@ import { SearchModule } from './search/search.module';
     CurrentlyDrugModule,
     InrModule,
     HintModule,
+    // DrugAlertModule,
     // UserModule,
   ],
   controllers: [AppController],
