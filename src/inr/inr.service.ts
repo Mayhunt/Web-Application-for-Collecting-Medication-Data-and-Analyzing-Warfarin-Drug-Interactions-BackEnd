@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InrEntity } from 'src/pkg/dal/inr/inr.entity';
 import { InrRepository } from 'src/pkg/dal/inr/inr.repository';
+import { UserEntity } from 'src/pkg/dal/user/user.entity';
 import { CreateInrDto } from './dto/create-inr.dto';
 import { UpdateInrDto } from './dto/update-inr.dto';
 
@@ -12,30 +13,34 @@ export class InrService {
     private inrRepository: InrRepository,
   ) {}
 
-  async createInr(createInrDto: CreateInrDto): Promise<InrEntity> {
+  async createInr(
+    createInrDto: CreateInrDto,
+    user: UserEntity,
+  ): Promise<InrEntity> {
     const { followDate, inrExpect, inrMeasure } = createInrDto;
     const inr = this.inrRepository.create({
       followDate,
       inrExpect,
       inrMeasure,
+      user,
     });
     await this.inrRepository.save(inr);
     return inr;
   }
 
-  async getInrs(): Promise<InrEntity[]> {
-    const Inrs = await this.inrRepository.find();
+  async getInrs(user: UserEntity): Promise<InrEntity[]> {
+    const Inrs = await this.inrRepository.find({ where: { user } });
     return Inrs;
   }
 
-  async getInrById(id: string): Promise<InrEntity> {
-    const Inr = await this.inrRepository.findOneOrFail(id);
+  async getInrById(id: string, user: UserEntity): Promise<InrEntity> {
+    const Inr = await this.inrRepository.findOneOrFail({ where: { user, id } });
     return Inr;
   }
 
-  async updateInr(id: string, updateInrDto: UpdateInrDto) {
+  async updateInr(id: string, updateInrDto: UpdateInrDto, user: UserEntity) {
     try {
-      const Inr = await this.getInrById(id);
+      const Inr = await this.getInrById(id, user);
 
       const { followDate, inrExpect, inrMeasure } = updateInrDto;
 
@@ -60,9 +65,9 @@ export class InrService {
     }
   }
 
-  async deleteInr(id: string) {
+  async deleteInr(id: string, user: UserEntity) {
     try {
-      const Inr = await this.getInrById(id);
+      const Inr = await this.getInrById(id, user);
       await this.inrRepository.delete(id);
       return Inr;
     } catch (e) {

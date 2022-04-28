@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DrugCurrentlyUsedEntity } from 'src/pkg/dal/drug-currently-used/drug-currently-used.entity';
 import { DrugCurrentlyUsedRepository } from 'src/pkg/dal/drug-currently-used/drug-currently-used.repository';
 import { DrugRepository } from 'src/pkg/dal/drug/drug.repository';
+import { UserEntity } from 'src/pkg/dal/user/user.entity';
 import { CreateCurrentlyDrugDto } from './dto/create-CurrentlyDrug.dto';
 import { UpdateCurrentlyDrugDto } from './dto/update-CurrentlyDrug.dto';
 
@@ -18,6 +19,7 @@ export class CurrentlyDrugService {
   // อีส่วนที่เป็น บูลีนนี่จะเอาไงกะกู
   async createCurrentlyDrug(
     createCurrentlyDrugDto: CreateCurrentlyDrugDto,
+    user: UserEntity,
   ): Promise<DrugCurrentlyUsedEntity> {
     const {
       caution,
@@ -50,6 +52,7 @@ export class CurrentlyDrugService {
       // time,
       // everyHour,
       genericName: drug.genericName,
+      user,
     });
 
     await this.currentlyDrugRepository.save(createCurrentlyDrug);
@@ -58,22 +61,32 @@ export class CurrentlyDrugService {
 
   // เอาค่า generic name + drug image + more
   // ต้องมีส่วนที่ดึง drugIdมาด้วยใช่มั้ย
-  async getCurrentlyDrugs(): Promise<DrugCurrentlyUsedEntity[]> {
-    const CurrentlyDrugs = await this.currentlyDrugRepository.find();
+  async getCurrentlyDrugs(
+    user: UserEntity,
+  ): Promise<DrugCurrentlyUsedEntity[]> {
+    const CurrentlyDrugs = await this.currentlyDrugRepository.find({
+      where: { user },
+    });
     return CurrentlyDrugs;
   }
 
-  async getCurrentlyDrugById(id: string): Promise<DrugCurrentlyUsedEntity> {
-    const CurrentlyDrug = await this.currentlyDrugRepository.findOneOrFail(id);
+  async getCurrentlyDrugById(
+    id: string,
+    user: UserEntity,
+  ): Promise<DrugCurrentlyUsedEntity> {
+    const CurrentlyDrug = await this.currentlyDrugRepository.findOneOrFail({
+      where: { user, id },
+    });
     return CurrentlyDrug;
   }
 
   async updateCurrentlyDrug(
     id: string,
     updateCurrentlyDrugDto: UpdateCurrentlyDrugDto,
+    user: UserEntity,
   ) {
     try {
-      const CurrentlyDrug = await this.getCurrentlyDrugById(id);
+      const CurrentlyDrug = await this.getCurrentlyDrugById(id, user);
 
       const { caution, receiveDate, receivePlace, more, alertStatus } =
         updateCurrentlyDrugDto;
@@ -107,9 +120,9 @@ export class CurrentlyDrugService {
     }
   }
 
-  async deleteCurrentlyDrug(id: string) {
+  async deleteCurrentlyDrug(id: string, user: UserEntity) {
     try {
-      const CurrentlyDrug = await this.getCurrentlyDrugById(id);
+      const CurrentlyDrug = await this.getCurrentlyDrugById(id, user);
       await this.currentlyDrugRepository.delete(id);
       return CurrentlyDrug;
     } catch (e) {

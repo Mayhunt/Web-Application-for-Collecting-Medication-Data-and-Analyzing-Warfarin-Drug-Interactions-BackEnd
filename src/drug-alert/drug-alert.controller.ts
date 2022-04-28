@@ -10,25 +10,26 @@ export class DrugAlertController {
   @Post()
   createDrugAlert(
     @Body() createAlertDto: CreateAlertDto,
+    // @User() user: UserEntity,
   ): Promise<DrugAlertEntity> {
     return this.drugAlertService.createDrugAlert(createAlertDto);
   }
 
-  //   @Get(':id')
-  //   getDrugAlertById(@Param('id') id: string): Promise<DrugAlertEntity> {
-  //     return this.drugAlertService.getDrugAlertById(id);
-  //   }
+  // @Get()
+  // getDrugAlert(@User() user: UserEntity): Promise<DrugAlertEntity> {
+  //   return this.drugAlertService.getDrugAlert(user);
+  // }
 
-  //   @Patch(':id/update')
-  //   updateDrugAlert(
-  //     @Param('id') id: string,
-  //     @Body() updateAlertDto: UpdateAlertDto,
-  //   ): Promise<DrugAlertEntity> {
-  //     return this.drugAlertService.updateDrugAlert(id, updateAlertDto);
-  //   }
+  // @Patch(':id/update')
+  // updateDrugAlert(
+  //   @Param('id') id: string,
+  //   @Body() updateAlertDto: UpdateAlertDto,
+  // ): Promise<DrugAlertEntity> {
+  //   return this.drugAlertService.updateDrugAlert(id, updateAlertDto);
+  // }
 
-  //   @Delete(':id/delete')
-  //   deleteDrugAlert(@Param('id') id: string): Promise<DrugAlertEntity> {
-  //     return this.drugAlertService.deleteDrugAlert(id);
-  //   }
+  // @Delete(':id/delete')
+  // deleteDrugAlert(@Param('id') id: string): Promise<DrugAlertEntity> {
+  //   return this.drugAlertService.deleteDrugAlert(id);
+  // }
 }

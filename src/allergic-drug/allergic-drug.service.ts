@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AllergicDrugUsedEntity } from 'src/pkg/dal/allergic-drug-used/allergic-drug-used.entity';
 import { AllergicDrugUsedRepository } from 'src/pkg/dal/allergic-drug-used/allergic-drug-used.repository';
 import { DrugRepository } from 'src/pkg/dal/drug/drug.repository';
+import { UserEntity } from 'src/pkg/dal/user/user.entity';
 import { CreateAllergicDrugDto } from './dto/create-AllergicDrug.dto';
 import { UpdateAllergicDrugDto } from './dto/update-AllergicDrug.dto';
 
@@ -18,6 +19,7 @@ export class AllergicDrugService {
 
   async createAllergicDrug(
     createAllergicDrugDto: CreateAllergicDrugDto,
+    user: UserEntity,
   ): Promise<AllergicDrugUsedEntity> {
     const { symptom, place, more } = createAllergicDrugDto;
 
@@ -30,6 +32,7 @@ export class AllergicDrugService {
       place,
       more,
       genericName: drug.genericName,
+      user,
     });
 
     await this.allergicDrugUsedRepository.save(createAllergicDrug);
@@ -37,14 +40,19 @@ export class AllergicDrugService {
   }
 
   // เอาแค่ค่า generic name + drug image + symptom
-  async getAllergicDrugs(): Promise<AllergicDrugUsedEntity[]> {
-    const AllergicDrugs = await this.allergicDrugUsedRepository.find();
+  async getAllergicDrugs(user: UserEntity): Promise<AllergicDrugUsedEntity[]> {
+    const AllergicDrugs = await this.allergicDrugUsedRepository.find({
+      where: { user },
+    });
     return AllergicDrugs;
   }
 
-  async getAllergicDrugById(id: string): Promise<AllergicDrugUsedEntity> {
+  async getAllergicDrugById(
+    id: string,
+    user: UserEntity,
+  ): Promise<AllergicDrugUsedEntity> {
     const AllergicDrug = await this.allergicDrugUsedRepository.findOneOrFail({
-      id,
+      where: { user, id },
     });
     return AllergicDrug;
   }
@@ -52,9 +60,10 @@ export class AllergicDrugService {
   async updateAllergicDrug(
     id: string,
     updateAllergicDrugDto: UpdateAllergicDrugDto,
+    user: UserEntity,
   ) {
     try {
-      const AllergicDrug = await this.getAllergicDrugById(id);
+      const AllergicDrug = await this.getAllergicDrugById(id, user);
 
       const { symptom, place, more } = updateAllergicDrugDto;
 
@@ -79,9 +88,9 @@ export class AllergicDrugService {
     }
   }
 
-  async deleteAllergicDrug(id: string) {
+  async deleteAllergicDrug(id: string, user: UserEntity) {
     try {
-      const AllergicDrug = await this.getAllergicDrugById(id);
+      const AllergicDrug = await this.getAllergicDrugById(id, user);
       await this.allergicDrugUsedRepository.delete(id);
       return AllergicDrug;
     } catch (e) {

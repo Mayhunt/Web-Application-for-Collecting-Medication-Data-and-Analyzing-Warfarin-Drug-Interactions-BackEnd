@@ -8,8 +8,6 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 // import { SearchModule } from './search/search.module';
 import { CurrentlyDrugModule } from './currently-drug/currently-drug.module';
-// import { UserModule } from './user/user.module';
-import { HintModule } from './hint/hint.module';
 import { InrModule } from './inr/inr.module';
 import { DatabaseConfig } from './pkg/config/database.config';
 import { GenericConfig } from './pkg/config/generic.config';
@@ -88,7 +86,7 @@ import { SearchModule } from './search/search.module';
     SearchModule,
     CurrentlyDrugModule,
     InrModule,
-    HintModule,
+    // HintModule,
     // DrugAlertModule,
     // UserModule,
   ],
