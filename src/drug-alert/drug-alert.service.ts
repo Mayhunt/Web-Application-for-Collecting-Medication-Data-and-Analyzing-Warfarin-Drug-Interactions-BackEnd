@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DrugAlertEntity } from 'src/pkg/dal/drug-alert/drug-alert.entity';
 import { DrugAlertRepository } from 'src/pkg/dal/drug-alert/drug-alert.repository';
 import { CreateAlertDto } from './dto/create-alert.dto';
+import { UpdateAlertDto } from './dto/update-alert.dto';
 
 @Injectable()
 export class DrugAlertService {
@@ -25,55 +26,55 @@ export class DrugAlertService {
     return alert;
   }
 
-  // async getDrugAlert(user: UserEntity): Promise<DrugAlertEntity[]> {
-  //   const alert = await this.drugAlertRepository.find({ where: { user } });
-  //   return alert;
-  // }
+  async getDrugAlert(): Promise<DrugAlertEntity[]> {
+    const alert = await this.drugAlertRepository.find();
+    return alert;
+  }
 
-  // async getDrugAlertById(id: string, user: UserEntity): Promise<DrugAlertEntity> {
-  //   const alert = await this.drugAlertRepository.findOneOrFail({ where: { user, id } });
-  //   return alert;
-  // }
+  async getDrugAlertById(id: string): Promise<DrugAlertEntity> {
+    const alert = await this.drugAlertRepository.findOneOrFail(id);
+    return alert;
+  }
 
-  // async updateDrugAlert(updateAlertDto: UpdateAlertDto, user: UserEntity) {
-  //   try {
-  //     const alert = await this.getDrugAlert(user);
+  async updateDrugAlert(id: string, updateAlertDto: UpdateAlertDto) {
+    try {
+      const alert = await this.getDrugAlertById(id);
 
-  //     const { take, tabs, time, every_hour } = updateAlertDto;
+      const { take, tabs, time, every_hour } = updateAlertDto;
 
-  //     if (take) {
-  //       alert.take = take;
-  //     }
+      if (take) {
+        alert.take = take;
+      }
 
-  //     if (tabs) {
-  //       alert.tabs = tabs;
-  //     }
+      if (tabs) {
+        alert.tabs = tabs;
+      }
 
-  //     if (every_hour) {
-  //       alert.every_hour = every_hour;
-  //     }
+      if (every_hour) {
+        alert.every_hour = every_hour;
+      }
 
-  //     if (time) {
-  //       alert.time = time;
-  //     }
+      if (time) {
+        alert.time = time;
+      }
 
-  //     await this.drugAlertRepository.save(alert);
-  //     return alert;
-  //   } catch (e) {
-  //     throw new NotFoundException({
-  //       message: ['Updating not success'],
-  //     });
-  //   }
-  // }
-  // async deleteDrugAlert(user: UserEntity) {
-  //   try {
-  //     const DrugAlert = await this.getDrugAlert(user);
-  //     await this.drugAlertRepository.delete();
-  //     return DrugAlert;
-  //   } catch (e) {
-  //     throw new NotFoundException({
-  //       message: ['Deleting not success'],
-  //     });
-  //   }
-  // }
+      await this.drugAlertRepository.save(alert);
+      return alert;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Updating not success'],
+      });
+    }
+  }
+  async deleteDrugAlert(id: string) {
+    try {
+      const DrugAlert = await this.getDrugAlertById(id);
+      await this.drugAlertRepository.delete(id);
+      return DrugAlert;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Deleting not success'],
+      });
+    }
+  }
 }

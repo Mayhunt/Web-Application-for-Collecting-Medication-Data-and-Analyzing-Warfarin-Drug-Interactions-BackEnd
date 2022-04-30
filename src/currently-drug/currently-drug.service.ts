@@ -22,7 +22,6 @@ export class CurrentlyDrugService {
     user: UserEntity,
   ): Promise<DrugCurrentlyUsedEntity> {
     const {
-      caution,
       receiveDate,
       receivePlace,
       alertStatus,
@@ -41,7 +40,6 @@ export class CurrentlyDrugService {
     });
 
     const createCurrentlyDrug = this.currentlyDrugRepository.create({
-      caution,
       receiveDate,
       receivePlace,
       more,
@@ -88,12 +86,8 @@ export class CurrentlyDrugService {
     try {
       const CurrentlyDrug = await this.getCurrentlyDrugById(id, user);
 
-      const { caution, receiveDate, receivePlace, more, alertStatus } =
+      const { receiveDate, receivePlace, more, alertStatus } =
         updateCurrentlyDrugDto;
-
-      if (caution) {
-        CurrentlyDrug.caution = caution;
-      }
 
       if (receiveDate) {
         CurrentlyDrug.receiveDate = receiveDate;
