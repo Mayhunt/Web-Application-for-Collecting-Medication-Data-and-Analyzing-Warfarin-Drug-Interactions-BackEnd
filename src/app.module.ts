@@ -25,6 +25,7 @@ import { UserEntity } from './pkg/dal/user/user.entity';
 import { QuestionModule } from './question/question.module';
 import { SearchModule } from './search/search.module';
 // import { Drug0alertService } from './drug0alert/drug0alert.service';
+import { InteractModule } from './interact/interact.module';
 
 @Module({
   imports: [
@@ -86,6 +87,7 @@ import { SearchModule } from './search/search.module';
     SearchModule,
     CurrentlyDrugModule,
     InrModule,
+    InteractModule,
     // HintModule,
     // DrugAlertModule,
     // UserModule,
