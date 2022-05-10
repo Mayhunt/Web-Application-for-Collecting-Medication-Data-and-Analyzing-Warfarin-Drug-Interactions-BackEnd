@@ -15,11 +15,10 @@ export class DrugAlertService {
   async createDrugAlert(
     createAlertDto: CreateAlertDto,
   ): Promise<DrugAlertEntity> {
-    const { take, tabs, time, every_hour } = createAlertDto;
+    const { take, tabs, time } = createAlertDto;
     const alert = this.drugAlertRepository.create({
       tabs,
       time,
-      every_hour,
       take,
     });
     await this.drugAlertRepository.save(alert);
@@ -48,10 +47,6 @@ export class DrugAlertService {
 
       if (tabs) {
         alert.tabs = tabs;
-      }
-
-      if (every_hour) {
-        alert.every_hour = every_hour;
       }
 
       if (time) {

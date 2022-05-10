@@ -16,9 +16,6 @@ export class DrugCurrentlyUsedEntity extends BaseEntity {
   @Column({ name: 'generic_name', type: 'varchar', length: 255 })
   genericName: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  caution: string;
-
   @Column({ name: 'receive_date', type: 'timestamptz' })
   receiveDate: Date;
 

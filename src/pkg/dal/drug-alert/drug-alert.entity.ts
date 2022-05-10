@@ -22,7 +22,4 @@ export class DrugAlertEntity extends BaseEntity {
 
   @Column({ type: 'enum', enum: Time })
   time: Time;
-
-  @Column({ name: 'every_hour', type: 'numeric' })
-  every_hour: number;
 }

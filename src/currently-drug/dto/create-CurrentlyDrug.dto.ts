@@ -10,9 +10,6 @@ export class CreateCurrentlyDrugDto {
   receiveDate: Date;
 
   @IsString()
-  caution: string;
-
-  @IsString()
   receivePlace: string;
 
   @IsString()

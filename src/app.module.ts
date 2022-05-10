@@ -8,10 +8,14 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 // import { SearchModule } from './search/search.module';
 import { CurrentlyDrugModule } from './currently-drug/currently-drug.module';
+import { DrugAlertModule } from './drug-alert/drug-alert.module';
 import { InrModule } from './inr/inr.module';
+// import { Drug0alertService } from './drug0alert/drug0alert.service';
+import { InteractModule } from './interact/interact.module';
 import { DatabaseConfig } from './pkg/config/database.config';
 import { GenericConfig } from './pkg/config/generic.config';
 import { JwtConfig } from './pkg/config/jwt.config';
+import { S3Config } from './pkg/config/s3.config';
 import { AllergicCardPicEntity } from './pkg/dal/allergic-card-pic/allergic-card-pic.entity';
 import { AllergicDrugUsedEntity } from './pkg/dal/allergic-drug-used/allergic-drug-used.entity';
 import { DrugAlertEntity } from './pkg/dal/drug-alert/drug-alert.entity';
@@ -24,14 +28,13 @@ import { QuestionEntity } from './pkg/dal/question/question.entity';
 import { UserEntity } from './pkg/dal/user/user.entity';
 import { QuestionModule } from './question/question.module';
 import { SearchModule } from './search/search.module';
-// import { Drug0alertService } from './drug0alert/drug0alert.service';
-import { InteractModule } from './interact/interact.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [DatabaseConfig, GenericConfig, JwtConfig],
+      load: [DatabaseConfig, GenericConfig, JwtConfig, S3Config],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -89,8 +92,9 @@ import { InteractModule } from './interact/interact.module';
     InrModule,
     InteractModule,
     // HintModule,
-    // DrugAlertModule,
+    DrugAlertModule,
     // UserModule,
+    StorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

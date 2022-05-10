@@ -10,7 +10,4 @@ export class CreateAlertDto {
 
   @IsEnum(Time)
   time: Time;
-
-  @IsNumber()
-  every_hour: number;
 }
