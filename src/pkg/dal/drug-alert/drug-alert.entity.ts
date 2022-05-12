@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToOne } from 'typeorm';
 import { BaseEntity } from '../base/base.entity';
+import { DrugCurrentlyUsedEntity } from '../drug-currently-used/drug-currently-used.entity';
 
 export enum Takes {
   BEFOREMEAL = 'before meal',
@@ -22,4 +23,10 @@ export class DrugAlertEntity extends BaseEntity {
 
   @Column({ type: 'enum', enum: Time })
   time: Time;
+
+  @OneToOne(
+    () => DrugCurrentlyUsedEntity,
+    (drugCurrentlyUsed) => drugCurrentlyUsed.drugAlert,
+  ) // specify inverse side as a second parameter
+  drugCurrentlyUsed: DrugCurrentlyUsedEntity;
 }
