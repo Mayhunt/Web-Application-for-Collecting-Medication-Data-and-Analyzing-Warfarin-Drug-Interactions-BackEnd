@@ -25,10 +25,12 @@ export class CurrentlyDrugController {
   createCurrentlyDrug(
     @User() user: UserEntity,
     @Body() createCurrentlyDrugDto: CreateCurrentlyDrugDto,
+    // drugAlert: DrugAlertEntity,
   ): Promise<DrugCurrentlyUsedEntity> {
     return this.currentlyDrugService.createCurrentlyDrug(
       createCurrentlyDrugDto,
       user,
+      // drugAlert,
     );
   }
 

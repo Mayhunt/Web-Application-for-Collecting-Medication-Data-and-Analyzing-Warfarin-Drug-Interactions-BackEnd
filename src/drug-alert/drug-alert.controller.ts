@@ -19,9 +19,13 @@ export class DrugAlertController {
   @Post()
   createDrugAlert(
     @Body() createAlertDto: CreateAlertDto,
+    // drugCurrentlyUsed: DrugCurrentlyUsedEntity,
     // @User() user: UserEntity,
   ): Promise<DrugAlertEntity> {
-    return this.drugAlertService.createDrugAlert(createAlertDto);
+    return this.drugAlertService.createDrugAlert(
+      createAlertDto,
+      // drugCurrentlyUsed,
+    );
   }
 
   @Get()

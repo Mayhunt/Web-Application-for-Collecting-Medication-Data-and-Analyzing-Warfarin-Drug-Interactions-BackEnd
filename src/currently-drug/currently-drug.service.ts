@@ -20,6 +20,7 @@ export class CurrentlyDrugService {
   async createCurrentlyDrug(
     createCurrentlyDrugDto: CreateCurrentlyDrugDto,
     user: UserEntity,
+    // drugAlert: DrugAlertEntity,
   ): Promise<DrugCurrentlyUsedEntity> {
     const {
       receiveDate,
