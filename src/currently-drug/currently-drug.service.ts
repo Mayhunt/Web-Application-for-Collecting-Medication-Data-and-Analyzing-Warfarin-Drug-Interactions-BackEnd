@@ -39,6 +39,7 @@ export class CurrentlyDrugService {
     const drug = await this.drugRepository.findOneOrFail({
       id: createCurrentlyDrugDto.drugId,
     });
+    // const alert = await this.drugAlertRepository.save(alert);
 
     const createCurrentlyDrug = this.currentlyDrugRepository.create({
       receiveDate,

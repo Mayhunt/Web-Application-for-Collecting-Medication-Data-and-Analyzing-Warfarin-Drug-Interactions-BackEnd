@@ -26,7 +26,7 @@ export class InrController {
     @User() user: UserEntity,
     @Body() createInrDto: CreateInrDto,
   ): Promise<InrEntity> {
-    console.log(user);
+    // console.log(user);
     return this.inrService.createInr(createInrDto, user);
   }
 

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DrugAlertEntity } from 'src/pkg/dal/drug-alert/drug-alert.entity';
 import { DrugAlertRepository } from 'src/pkg/dal/drug-alert/drug-alert.repository';
+import { DrugCurrentlyUsedRepository } from 'src/pkg/dal/drug-currently-used/drug-currently-used.repository';
 import { CreateAlertDto } from './dto/create-alert.dto';
 import { UpdateAlertDto } from './dto/update-alert.dto';
 
@@ -10,6 +11,9 @@ export class DrugAlertService {
   constructor(
     @InjectRepository(DrugAlertRepository)
     private drugAlertRepository: DrugAlertRepository,
+
+    @InjectRepository(DrugCurrentlyUsedRepository)
+    private drugCurrentlyUsedRepository: DrugCurrentlyUsedRepository,
   ) {}
 
   async createDrugAlert(
@@ -23,7 +27,12 @@ export class DrugAlertService {
       take,
       // drugCurrentlyUsed,
     });
-    await this.drugAlertRepository.save(alert);
+    const alertFinal = await this.drugAlertRepository.save(alert);
+    const CurrentlyDrug = await this.drugCurrentlyUsedRepository.findOneOrFail({
+      where: { id: createAlertDto.drugCurrentlyUsedId },
+    });
+    CurrentlyDrug.drugAlert = alertFinal;
+    await this.drugCurrentlyUsedRepository.save(CurrentlyDrug);
     return alert;
   }
 

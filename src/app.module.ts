@@ -29,6 +29,7 @@ import { UserEntity } from './pkg/dal/user/user.entity';
 import { QuestionModule } from './question/question.module';
 import { SearchModule } from './search/search.module';
 import { StorageModule } from './storage/storage.module';
+import { CardPicModule } from './card-pic/card-pic.module';
 
 @Module({
   imports: [
@@ -95,6 +96,7 @@ import { StorageModule } from './storage/storage.module';
     DrugAlertModule,
     // UserModule,
     StorageModule,
+    CardPicModule,
   ],
   controllers: [AppController],
   providers: [AppService],
