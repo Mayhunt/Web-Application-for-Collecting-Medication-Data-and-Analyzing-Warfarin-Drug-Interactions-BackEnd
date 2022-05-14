@@ -2,8 +2,6 @@ version: '3.7'
 
 services:
   api:
-    depends_on:
-      - db
     build:
       context: .
       target: production
@@ -12,15 +10,6 @@ services:
       - .env
     ports:
       - 8080:${PORT}
-  db:
-    image: postgres:14.1
-    env_file: .env
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_DATABASE}
-    ports:
-      - ${DB_PORT}:5432
 
 volumes:
   pgadmin_pv: null
