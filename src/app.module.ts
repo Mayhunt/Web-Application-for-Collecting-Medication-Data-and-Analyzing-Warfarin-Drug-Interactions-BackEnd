@@ -6,9 +6,11 @@ import { AllergicDrugModule } from './allergic-drug/allergic-drug.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { CardPicModule } from './card-pic/card-pic.module';
 // import { SearchModule } from './search/search.module';
 import { CurrentlyDrugModule } from './currently-drug/currently-drug.module';
 import { DrugAlertModule } from './drug-alert/drug-alert.module';
+import { HealthModule } from './health/health.module';
 import { InrModule } from './inr/inr.module';
 // import { Drug0alertService } from './drug0alert/drug0alert.service';
 import { InteractModule } from './interact/interact.module';
@@ -29,7 +31,6 @@ import { UserEntity } from './pkg/dal/user/user.entity';
 import { QuestionModule } from './question/question.module';
 import { SearchModule } from './search/search.module';
 import { StorageModule } from './storage/storage.module';
-import { CardPicModule } from './card-pic/card-pic.module';
 
 @Module({
   imports: [
@@ -97,6 +98,7 @@ import { CardPicModule } from './card-pic/card-pic.module';
     // UserModule,
     StorageModule,
     CardPicModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
