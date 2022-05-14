@@ -66,6 +66,7 @@ export class CurrentlyDrugService {
   ): Promise<DrugCurrentlyUsedEntity[]> {
     const CurrentlyDrugs = await this.currentlyDrugRepository.find({
       where: { user },
+      relations: ['drugAlert'],
     });
     return CurrentlyDrugs;
   }
