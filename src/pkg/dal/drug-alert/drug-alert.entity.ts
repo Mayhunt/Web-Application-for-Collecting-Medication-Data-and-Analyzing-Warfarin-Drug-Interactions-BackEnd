@@ -27,6 +27,7 @@ export class DrugAlertEntity extends BaseEntity {
   @OneToOne(
     () => DrugCurrentlyUsedEntity,
     (drugCurrentlyUsed) => drugCurrentlyUsed.drugAlert,
+    { onDelete: 'CASCADE', onUpdate: 'CASCADE' },
   ) // specify inverse side as a second parameter
   drugCurrentlyUsed: DrugCurrentlyUsedEntity;
 }

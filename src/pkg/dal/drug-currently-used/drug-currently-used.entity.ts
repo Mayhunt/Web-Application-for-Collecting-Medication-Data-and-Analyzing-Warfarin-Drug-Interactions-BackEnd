@@ -46,7 +46,7 @@ export class DrugCurrentlyUsedEntity extends BaseEntity {
   )
   drugCurrentlyUseds: DrugCurrentlyUsedEntity[];
 
-  @OneToOne(() => DrugAlertEntity, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+  @OneToOne(() => DrugAlertEntity)
   @JoinColumn()
   drugAlert: DrugAlertEntity;
 }
