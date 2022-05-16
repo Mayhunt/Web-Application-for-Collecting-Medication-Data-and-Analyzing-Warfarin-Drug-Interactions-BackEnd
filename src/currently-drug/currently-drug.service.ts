@@ -120,7 +120,7 @@ export class CurrentlyDrugService {
         CurrentlyDrug.more = more;
       }
 
-      if (alertStatus) {
+      if (alertStatus !== undefined) {
         CurrentlyDrug.alertStatus = alertStatus;
       }
 
