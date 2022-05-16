@@ -17,25 +17,45 @@ export class InrService {
     createInrDto: CreateInrDto,
     user: UserEntity,
   ): Promise<InrEntity> {
-    const { followDate, inrExpect, inrMeasure } = createInrDto;
-    const inr = this.inrRepository.create({
-      followDate,
-      inrExpect,
-      inrMeasure,
-      user,
-    });
-    await this.inrRepository.save(inr);
-    return inr;
+    try {
+      const { followDate, inrExpect, inrMeasure } = createInrDto;
+      const inr = this.inrRepository.create({
+        followDate,
+        inrExpect,
+        inrMeasure,
+        user,
+      });
+      await this.inrRepository.save(inr);
+      return inr;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Creating not success'],
+      });
+    }
   }
 
   async getInrs(user: UserEntity): Promise<InrEntity[]> {
-    const Inrs = await this.inrRepository.find({ where: { user } });
-    return Inrs;
+    try {
+      const Inrs = await this.inrRepository.find({ where: { user } });
+      return Inrs;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Get INR Data not success'],
+      });
+    }
   }
 
   async getInrById(id: string, user: UserEntity): Promise<InrEntity> {
-    const Inr = await this.inrRepository.findOneOrFail({ where: { user, id } });
-    return Inr;
+    try {
+      const Inr = await this.inrRepository.findOneOrFail({
+        where: { user, id },
+      });
+      return Inr;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Get INR Data not success'],
+      });
+    }
   }
 
   async updateInr(id: string, updateInrDto: UpdateInrDto, user: UserEntity) {

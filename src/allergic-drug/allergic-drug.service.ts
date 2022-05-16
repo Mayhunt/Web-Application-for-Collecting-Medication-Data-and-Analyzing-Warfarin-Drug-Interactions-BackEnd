@@ -21,40 +21,58 @@ export class AllergicDrugService {
     createAllergicDrugDto: CreateAllergicDrugDto,
     user: UserEntity,
   ): Promise<AllergicDrugUsedEntity> {
-    const { symptom, place, more } = createAllergicDrugDto;
+    try {
+      const { symptom, place, more } = createAllergicDrugDto;
 
-    const drug = await this.drugRepository.findOneOrFail({
-      id: createAllergicDrugDto.drugId,
-    });
+      const drug = await this.drugRepository.findOneOrFail({
+        id: createAllergicDrugDto.drugId,
+      });
 
-    const createAllergicDrug = this.allergicDrugUsedRepository.create({
-      symptom,
-      place,
-      more,
-      genericName: drug.genericName,
-      user,
-    });
+      const createAllergicDrug = this.allergicDrugUsedRepository.create({
+        symptom,
+        place,
+        more,
+        genericName: drug.genericName,
+        user,
+      });
 
-    await this.allergicDrugUsedRepository.save(createAllergicDrug);
-    return createAllergicDrug;
+      await this.allergicDrugUsedRepository.save(createAllergicDrug);
+      return createAllergicDrug;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Creating not success'],
+      });
+    }
   }
 
   // เอาแค่ค่า generic name + drug image + symptom
   async getAllergicDrugs(user: UserEntity): Promise<AllergicDrugUsedEntity[]> {
-    const AllergicDrugs = await this.allergicDrugUsedRepository.find({
-      where: { user },
-    });
-    return AllergicDrugs;
+    try {
+      const AllergicDrugs = await this.allergicDrugUsedRepository.find({
+        where: { user },
+      });
+      return AllergicDrugs;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Get Allergic Drug Data not success'],
+      });
+    }
   }
 
   async getAllergicDrugById(
     id: string,
     user: UserEntity,
   ): Promise<AllergicDrugUsedEntity> {
-    const AllergicDrug = await this.allergicDrugUsedRepository.findOneOrFail({
-      where: { user, id },
-    });
-    return AllergicDrug;
+    try {
+      const AllergicDrug = await this.allergicDrugUsedRepository.findOneOrFail({
+        where: { user, id },
+      });
+      return AllergicDrug;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Get Allergic Drug Data not success'],
+      });
+    }
   }
   // ไม่ต้องอัพเดท generic name
   async updateAllergicDrug(

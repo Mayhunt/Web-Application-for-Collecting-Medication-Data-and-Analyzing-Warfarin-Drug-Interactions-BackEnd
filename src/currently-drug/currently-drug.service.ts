@@ -22,41 +22,44 @@ export class CurrentlyDrugService {
     user: UserEntity,
     // drugAlert: DrugAlertEntity,
   ): Promise<DrugCurrentlyUsedEntity> {
-    const {
-      receiveDate,
-      receivePlace,
-      alertStatus,
-      more,
-      // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
-      // drugAlert,
-      // tabs,
-      // ค่า enum
-      // take,
-      // time,
-      // everyHour,
-    } = createCurrentlyDrugDto;
-
-    const drug = await this.drugRepository.findOneOrFail({
-      id: createCurrentlyDrugDto.drugId,
-    });
-    // const alert = await this.drugAlertRepository.save(alert);
-
-    const createCurrentlyDrug = this.currentlyDrugRepository.create({
-      receiveDate,
-      receivePlace,
-      more,
-      alertStatus,
-      // drugAlert,
-      // tabs,
-      // take,
-      // time,
-      // everyHour,
-      genericName: drug.genericName,
-      user,
-    });
-
-    await this.currentlyDrugRepository.save(createCurrentlyDrug);
-    return createCurrentlyDrug;
+    try {
+      const {
+        receiveDate,
+        receivePlace,
+        alertStatus,
+        more,
+        // ถ้าไม่เตือนค่าข้างล่างไม่มี ต้องทำไง
+        // drugAlert,
+        // tabs,
+        // ค่า enum
+        // take,
+        // time,
+        // everyHour,
+      } = createCurrentlyDrugDto;
+      const drug = await this.drugRepository.findOneOrFail({
+        id: createCurrentlyDrugDto.drugId,
+      });
+      // const alert = await this.drugAlertRepository.save(alert);
+      const createCurrentlyDrug = this.currentlyDrugRepository.create({
+        receiveDate,
+        receivePlace,
+        more,
+        alertStatus,
+        // drugAlert,
+        // tabs,
+        // take,
+        // time,
+        // everyHour,
+        genericName: drug.genericName,
+        user,
+      });
+      await this.currentlyDrugRepository.save(createCurrentlyDrug);
+      return createCurrentlyDrug;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Creating not success'],
+      });
+    }
   }
 
   // เอาค่า generic name + drug image + more
@@ -64,22 +67,34 @@ export class CurrentlyDrugService {
   async getCurrentlyDrugs(
     user: UserEntity,
   ): Promise<DrugCurrentlyUsedEntity[]> {
-    const CurrentlyDrugs = await this.currentlyDrugRepository.find({
-      where: { user },
-      relations: ['drugAlert'],
-    });
-    return CurrentlyDrugs;
+    try {
+      const CurrentlyDrugs = await this.currentlyDrugRepository.find({
+        where: { user },
+        relations: ['drugAlert'],
+      });
+      return CurrentlyDrugs;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Get Data not success'],
+      });
+    }
   }
 
   async getCurrentlyDrugById(
     id: string,
     user: UserEntity,
   ): Promise<DrugCurrentlyUsedEntity> {
-    const CurrentlyDrug = await this.currentlyDrugRepository.findOneOrFail({
-      where: { user, id },
-      relations: ['drugAlert'],
-    });
-    return CurrentlyDrug;
+    try {
+      const CurrentlyDrug = await this.currentlyDrugRepository.findOneOrFail({
+        where: { user, id },
+        relations: ['drugAlert'],
+      });
+      return CurrentlyDrug;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Creating Drug Data not success'],
+      });
+    }
   }
 
   async updateCurrentlyDrug(

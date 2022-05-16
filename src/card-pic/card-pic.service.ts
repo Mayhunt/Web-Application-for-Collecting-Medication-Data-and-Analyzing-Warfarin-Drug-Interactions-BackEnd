@@ -16,28 +16,46 @@ export class CardPicService {
     createCardPicDto: CreateCardPicDto,
     user: UserEntity,
   ): Promise<AllergicCardPicEntity> {
-    const { cardPic } = createCardPicDto;
-    const card = this.cardPicRepository.create({
-      cardPic,
-      user,
-    });
-    await this.cardPicRepository.save(card);
-    return card;
+    try {
+      const { cardPic } = createCardPicDto;
+      const card = this.cardPicRepository.create({
+        cardPic,
+        user,
+      });
+      await this.cardPicRepository.save(card);
+      return card;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Creating not success'],
+      });
+    }
   }
 
   async getCardPics(user: UserEntity): Promise<AllergicCardPicEntity[]> {
-    const cardPics = await this.cardPicRepository.find({ where: { user } });
-    return cardPics;
+    try {
+      const cardPics = await this.cardPicRepository.find({ where: { user } });
+      return cardPics;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Get Data not success'],
+      });
+    }
   }
 
   async getCardPicById(
     id: string,
     user: UserEntity,
   ): Promise<AllergicCardPicEntity> {
-    const cardPic = await this.cardPicRepository.findOneOrFail({
-      where: { user, id },
-    });
-    return cardPic;
+    try {
+      const cardPic = await this.cardPicRepository.findOneOrFail({
+        where: { user, id },
+      });
+      return cardPic;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Get Data not success'],
+      });
+    }
   }
 
   async deleteCardPic(id: string, user: UserEntity) {

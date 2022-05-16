@@ -20,30 +20,49 @@ export class DrugAlertService {
     createAlertDto: CreateAlertDto,
     // drugCurrentlyUsed: DrugCurrentlyUsedEntity,
   ): Promise<DrugAlertEntity> {
-    const { take, tabs, time } = createAlertDto;
-    const alert = this.drugAlertRepository.create({
-      tabs,
-      time,
-      take,
-      // drugCurrentlyUsed,
-    });
-    const alertFinal = await this.drugAlertRepository.save(alert);
-    const CurrentlyDrug = await this.drugCurrentlyUsedRepository.findOneOrFail({
-      where: { id: createAlertDto.drugCurrentlyUsedId },
-    });
-    CurrentlyDrug.drugAlert = alertFinal;
-    await this.drugCurrentlyUsedRepository.save(CurrentlyDrug);
-    return alert;
+    try {
+      const { take, tabs, time } = createAlertDto;
+      const alert = this.drugAlertRepository.create({
+        tabs,
+        time,
+        take,
+        // drugCurrentlyUsed,
+      });
+      const alertFinal = await this.drugAlertRepository.save(alert);
+      const CurrentlyDrug =
+        await this.drugCurrentlyUsedRepository.findOneOrFail({
+          where: { id: createAlertDto.drugCurrentlyUsedId },
+        });
+      CurrentlyDrug.drugAlert = alertFinal;
+      await this.drugCurrentlyUsedRepository.save(CurrentlyDrug);
+      return alert;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Creating not success'],
+      });
+    }
   }
 
   async getDrugAlert(): Promise<DrugAlertEntity[]> {
-    const alert = await this.drugAlertRepository.find();
-    return alert;
+    try {
+      const alert = await this.drugAlertRepository.find();
+      return alert;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Get data not success'],
+      });
+    }
   }
 
   async getDrugAlertById(id: string): Promise<DrugAlertEntity> {
-    const alert = await this.drugAlertRepository.findOneOrFail(id);
-    return alert;
+    try {
+      const alert = await this.drugAlertRepository.findOneOrFail(id);
+      return alert;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Get data not success'],
+      });
+    }
   }
 
   async updateDrugAlert(id: string, updateAlertDto: UpdateAlertDto) {

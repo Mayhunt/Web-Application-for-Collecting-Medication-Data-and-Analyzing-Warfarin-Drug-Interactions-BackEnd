@@ -85,8 +85,14 @@ export class AuthService {
   }
 
   public async me(id: string) {
-    const user = await this.userRepository.findOne({ id });
-    return user;
+    try {
+      const user = await this.userRepository.findOne({ id });
+      return user;
+    } catch (e) {
+      throw new NotFoundException({
+        message: ['Get Your Data not success'],
+      });
+    }
   }
 
   async updateMe(id: string, updateMeDto: UpdateMeDto) {
